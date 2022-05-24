@@ -1,24 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import { ARCanvas, VRCanvas } from "@react-three/xr";
+import { useLoader, Canvas } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Suspense } from "react";
 
 function App() {
+  const gltf = useLoader(GLTFLoader, "/textNew.glb");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <VRCanvas flat linear>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[-10, -10, -10]} />
+      <primitive object={gltf.scene} />
+    </VRCanvas>
   );
 }
 
